@@ -10,6 +10,6 @@ import org.springframework.stereotype.Component;
 public class TutorialsRestJavaeeApplication extends ResourceConfig {
 
     public TutorialsRestJavaeeApplication() {
-	register(CustomerResource.class);
+	registerClasses(CustomerResource.class);
     }
 }
