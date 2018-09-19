@@ -1,22 +1,15 @@
 package com.welyab.tutorials.restful.api;
 
-import java.util.Set;
-
 import javax.ws.rs.ApplicationPath;
-import javax.ws.rs.core.Application;
 
-import com.google.common.collect.ImmutableSet;
+import org.glassfish.jersey.server.ResourceConfig;
+import org.springframework.stereotype.Component;
 
+@Component
 @ApplicationPath("api")
-public class TutorialsRestJavaeeApplication extends Application {
+public class TutorialsRestJavaeeApplication extends ResourceConfig {
 
-    private static final ImmutableSet<Class<?>> CLASSES = ImmutableSet.of(
-	    CustomerResource.class,
-	    IllegalArgumentExceptionMapper.class
-    );
-
-    @Override
-    public Set<Class<?>> getClasses() {
-	return CLASSES;
+    public TutorialsRestJavaeeApplication() {
+	register(CustomerResource.class);
     }
 }

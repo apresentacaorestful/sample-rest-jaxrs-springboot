@@ -2,14 +2,16 @@ package com.welyab.tutorials.restful.repository;
 
 import java.util.List;
 
-import javax.inject.Inject;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Component;
 
 import com.welyab.tutorials.restful.Customer;
 import com.welyab.tutorials.restful.dao.CustomerDao;
 
+@Component
 public class CustomerRepository {
 
-    @Inject
+    @Autowired
     private CustomerDao customerDao;
 
     public void save(Customer customer) {

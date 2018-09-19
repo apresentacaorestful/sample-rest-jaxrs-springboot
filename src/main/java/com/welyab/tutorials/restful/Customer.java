@@ -4,6 +4,9 @@ import java.io.Serializable;
 
 import javax.persistence.Entity;
 import javax.persistence.Id;
+import javax.persistence.Transient;
+
+import com.welyab.tutorials.restful.api.Link;
 
 @Entity
 public class Customer implements Serializable {
@@ -14,6 +17,12 @@ public class Customer implements Serializable {
     private String name;
 
     private String email;
+
+    @Transient
+    private Link self;
+
+    @Transient
+    private Link delete;
 
     public String getCode() {
 	return code;
@@ -39,4 +48,19 @@ public class Customer implements Serializable {
 	this.email = email;
     }
 
+    public Link getSelf() {
+	return self;
+    }
+
+    public void setSelf(Link self) {
+	this.self = self;
+    }
+
+    public Link getDelete() {
+	return delete;
+    }
+
+    public void setDelete(Link delete) {
+	this.delete = delete;
+    }
 }

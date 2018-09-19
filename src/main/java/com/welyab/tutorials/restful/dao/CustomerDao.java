@@ -2,14 +2,17 @@ package com.welyab.tutorials.restful.dao;
 
 import java.util.List;
 
-import javax.inject.Inject;
 import javax.persistence.EntityManager;
+
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Component;
 
 import com.welyab.tutorials.restful.Customer;
 
+@Component
 public class CustomerDao extends Dao<String, Customer> {
 
-    @Inject
+    @Autowired
     private EntityManager entityManager;
 
     protected CustomerDao() {

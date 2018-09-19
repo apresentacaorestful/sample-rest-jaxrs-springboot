@@ -1,19 +1,20 @@
 package com.welyab.tutorials.restful.repository.config;
 
-import javax.enterprise.context.ApplicationScoped;
-import javax.enterprise.context.RequestScoped;
-import javax.enterprise.inject.Produces;
 import javax.inject.Inject;
 import javax.persistence.EntityManager;
 
-@ApplicationScoped
+import org.springframework.context.annotation.Bean;
+import org.springframework.stereotype.Component;
+import org.springframework.web.context.annotation.RequestScope;
+
+@Component
 public class EntityManagerProducer {
 
     @Inject
     private EntityManagerFactoryHolder entityManagerFactoryHolder;
 
-    @Produces
-    @RequestScoped
+    @Bean
+    @RequestScope
     public EntityManager createEntitymanager() {
 	return entityManagerFactoryHolder.crateEntityManager();
     }

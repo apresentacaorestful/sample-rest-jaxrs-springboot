@@ -3,20 +3,21 @@ package com.welyab.tutorials.restful.service;
 import java.util.List;
 import java.util.UUID;
 
-import javax.enterprise.context.RequestScoped;
-import javax.inject.Inject;
-
 import org.apache.commons.lang3.StringUtils;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Component;
+import org.springframework.web.context.annotation.RequestScope;
 
 import com.google.common.base.Preconditions;
 
 import com.welyab.tutorials.restful.Customer;
 import com.welyab.tutorials.restful.repository.CustomerRepository;
 
-@RequestScoped
+@Component
+@RequestScope
 public class CustomerService {
 
-    @Inject
+    @Autowired
     private CustomerRepository customerRepository;
 
     public List<Customer> getCustomers() {
@@ -24,7 +25,11 @@ public class CustomerService {
     }
 
     public Customer get(String customerCode) {
-	Preconditions.checkNotNull(customerCode, "Parameter customerCode cannot be null");
+	Preconditions.checkArgument(customerCode != null, "Parameter 'customerCode' cannot be null");
+	Preconditions.checkArgument(
+		StringUtils.isNotBlank(customerCode),
+		"Parameter 'customerCode' cannot be empty"
+	);
 	return customerRepository.findByCode(customerCode);
     }
 
@@ -35,37 +40,37 @@ public class CustomerService {
     }
 
     public void update(Customer customer) {
-	Preconditions.checkNotNull(customer, "Parameter customer cannot be null");
-
-	if (StringUtils.isBlank(customer.getCode())) {
-	    throw new IllegalArgumentException("The customer code cannot be blank");
-	}
-
-	if (StringUtils.isBlank(customer.getName())) {
-	    throw new IllegalArgumentException("Customer name cannot be blank");
-	}
-
-	if (StringUtils.isBlank(customer.getEmail())) {
-	    throw new IllegalArgumentException("Customer email cannot be null");
-	}
+	Preconditions.checkArgument(customer != null, "Parameter customer cannot be null");
+	Preconditions.checkArgument(
+		StringUtils.isBlank(customer.getCode()),
+		"Customer email cannot be blank"
+	);
+	Preconditions.checkArgument(
+		StringUtils.isNotBlank(customer.getEmail()),
+		"Customer name cannot be blank"
+	);
+	Preconditions.checkArgument(
+		StringUtils.isNotBlank(customer.getEmail()),
+		"Customer email cannot be null"
+	);
 
 	customerRepository.update(customer);
     }
 
     public void addCostumer(Customer customer) {
-	Preconditions.checkNotNull(customer, "Parameter customer cannot be null");
-
-	if (StringUtils.isNotBlank(customer.getCode())) {
-	    throw new IllegalArgumentException("In order to save a new customer, the code can't be already set");
-	}
-
-	if (StringUtils.isBlank(customer.getName())) {
-	    throw new IllegalArgumentException("Customer name cannot be blank");
-	}
-
-	if (StringUtils.isBlank(customer.getEmail())) {
-	    throw new IllegalArgumentException("Customer email cannot be null");
-	}
+	Preconditions.checkArgument(customer != null, "Parameter customer cannot be null");
+	Preconditions.checkArgument(
+		StringUtils.isBlank(customer.getCode()),
+		"In order to save a new customer, the code can't be already set"
+	);
+	Preconditions.checkArgument(
+		StringUtils.isNotBlank(customer.getEmail()),
+		"Customer name cannot be blank"
+	);
+	Preconditions.checkArgument(
+		StringUtils.isNotBlank(customer.getEmail()),
+		"Customer email cannot be null"
+	);
 
 	customer.setCode(UUID.randomUUID().toString());
 	customerRepository.save(customer);

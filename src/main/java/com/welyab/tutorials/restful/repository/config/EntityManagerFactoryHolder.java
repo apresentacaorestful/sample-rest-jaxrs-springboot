@@ -2,12 +2,13 @@ package com.welyab.tutorials.restful.repository.config;
 
 import javax.annotation.PostConstruct;
 import javax.annotation.PreDestroy;
-import javax.enterprise.context.ApplicationScoped;
 import javax.persistence.EntityManager;
 import javax.persistence.EntityManagerFactory;
 import javax.persistence.Persistence;
 
-@ApplicationScoped
+import org.springframework.stereotype.Component;
+
+@Component
 public class EntityManagerFactoryHolder {
 
     @PostConstruct
